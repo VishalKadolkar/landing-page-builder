@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PageAI — AI Landing Page Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">⚡ PageAI</div>
+    <a href="/builder" class="btn-nav">Open Builder</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-badge">🤖 100% Local AI — No API Keys</div>
+    <h1>Build Landing Pages<br/><span class="gradient-text">with AI in seconds</span></h1>
+    <p>Describe your business. Our AI generates a complete, beautiful landing page — runs entirely on your machine.</p>
+    <a href="/builder" class="btn-primary">Start Building Free →</a>
+  </section>
+
+  <section class="features">
+    <div class="feature-card">
+      <div class="feature-icon">✍️</div>
+      <h3>Just Describe It</h3>
+      <p>Tell the AI about your business in plain English. No design skills needed.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Instant Generation</h3>
+      <p>Get a full landing page with hero, features, testimonials and contact form.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📥</div>
+      <h3>Download and Deploy</h3>
+      <p>Download the HTML file and host it anywhere. It is yours completely.</p>
+    </div>
+  </section>
+
+  <section class="recent-pages">
+    <h2>Recently Generated Pages</h2>
+    <div class="pages-grid" id="pagesGrid">
+      <p class="loading-text">Loading...</p>
+    </div>
+  </section>
+
+  <script>
+    async function loadRecentPages() {
+      try {
+        const res = await fetch('/api/pages');
+        const pages = await res.json();
+        const grid = document.getElementById('pagesGrid');
+        if (pages.length === 0) {
+          grid.innerHTML = '<p class="loading-text">No pages yet. <a href="/builder">Create your first one!</a></p>';
+          return;
+        }
+        grid.innerHTML = pages.slice(0, 6).map(p => `
+          <div class="page-card">
+            <div class="page-card-header">${p.business_name}</div>
+            <p>${p.description.substring(0, 80)}...</p>
+            <div class="page-card-actions">
+              <a href="/api/pages/${p.id}" target="_blank" class="btn-small">Preview</a>
+            </div>
+          </div>
+        `).join('');
+      } catch(e) {
+        document.getElementById('pagesGrid').innerHTML = '<p class="loading-text">Could not load pages.</p>';
+      }
+    }
+    loadRecentPages();
+  </script>
+</body>
+</html>

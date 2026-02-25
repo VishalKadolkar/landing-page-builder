@@ -1,0 +1,7 @@
+node_modules/
+models/
+backend/data/
+__pycache__/
+*.pyc
+.env
+*.gguf

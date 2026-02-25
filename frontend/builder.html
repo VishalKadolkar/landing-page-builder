@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Builder — PageAI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body class="builder-body">
+  <div class="builder-layout">
+
+    <div class="builder-panel">
+      <div class="panel-header">
+        <a href="/" class="back-btn">← Back</a>
+        <h2>⚡ PageAI Builder</h2>
+      </div>
+
+      <div class="panel-content">
+        <div class="form-group">
+          <label>Business Name</label>
+          <input type="text" id="businessName" placeholder="e.g. Bella Bakery" />
+        </div>
+
+        <div class="form-group">
+          <label>Describe Your Business <span class="required">*</span></label>
+          <textarea id="description" rows="5" placeholder="e.g. A cozy bakery in New York specializing in artisan sourdough bread and French pastries."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Design Style</label>
+          <select id="style">
+            <option value="modern and minimal">Modern and Minimal</option>
+            <option value="bold and vibrant">Bold and Vibrant</option>
+            <option value="elegant and luxury">Elegant and Luxury</option>
+            <option value="friendly and playful">Friendly and Playful</option>
+            <option value="corporate and professional">Corporate and Professional</option>
+            <option value="dark and tech-focused">Dark and Tech</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Color Preference</label>
+          <input type="text" id="colors" placeholder="e.g. blue and white, or warm earth tones" />
+        </div>
+
+        <button class="btn-generate" id="generateBtn" onclick="generateImage()">
+          ✨ Generate Landing Page Image
+        </button>
+
+        <div class="status-box" id="statusBox" style="display:none">
+          <div class="status-spinner"></div>
+          <div>
+            <strong>AI is generating your image...</strong>
+            <p>This takes 20–40 seconds. Please wait.</p>
+          </div>
+        </div>
+
+        <div class="error-box" id="errorBox" style="display:none"></div>
+
+        <div class="actions-box" id="actionsBox" style="display:none">
+          <h3>✅ Image Generated!</h3>
+          <button onclick="downloadImage()" class="btn-action">📥 Download Image</button>
+          <button onclick="copyPrompt()" class="btn-action btn-outline">📋 Copy AI Prompt</button>
+        </div>
+
+        <div class="prompt-box" id="promptBox" style="display:none">
+          <label>Generated Image Prompt</label>
+          <p id="promptText"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="builder-preview">
+      <div class="preview-toolbar">
+        <span>Preview</span>
+      </div>
+      <div class="preview-container" id="previewContainer">
+        <div class="preview-placeholder">
+          <div class="placeholder-icon">🎨</div>
+          <h3>Your landing page image will appear here</h3>
+          <p>Fill in the form on the left and click Generate</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="/js/app.js"></script>
+</body>
+</html>
