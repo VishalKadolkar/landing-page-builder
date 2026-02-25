@@ -5,10 +5,12 @@ const generateRoutes = require('./routes/generate');
 const pagesRoutes = require('./routes/pages');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+
+// Serve frontend static files
 app.use(express.static(path.join(__dirname, '../frontend')));
 
 app.use('/api/generate', generateRoutes);
@@ -22,6 +24,11 @@ app.get('/builder', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/builder.html'));
 });
 
+// Catch all other routes and serve index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/index.html'));
+});
+
 app.listen(PORT, () => {
-  console.log(`\n🚀 Server running at http://localhost:${PORT}\n`);
+  console.log(`Server running on port ${PORT}`);
 });
